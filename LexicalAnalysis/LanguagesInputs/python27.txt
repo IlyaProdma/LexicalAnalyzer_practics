@@ -1,0 +1,21 @@
+class MyClass:
+    field1 : int
+    field2 : str
+    field3: dict
+
+    def MyClass(self):
+        field1 = 0
+        field2 = "test"
+        field3 = {}
+
+def func():
+    var1 = 1 + 1
+    for i in range(1, 10):
+        print i
+
+def func2(k, v):
+    return k * v
+
+def __main__():
+    func()
+    print func2(3, 3)
