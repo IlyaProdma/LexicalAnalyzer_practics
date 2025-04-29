@@ -70,7 +70,6 @@ public class Fortran77 : ProgrammingLanguage
         "@",
         ",",
         ":",
-        ".",
         "`",
         ";",
     };
