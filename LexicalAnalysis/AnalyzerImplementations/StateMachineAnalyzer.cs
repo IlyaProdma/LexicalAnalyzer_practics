@@ -3,14 +3,13 @@ using System.Text;
 namespace LexicalAnalysis.Analyzers;
 
 internal enum AnalysisState {
-    INIT,
-    KEYWORD,
     DELIMITER,
-    IDENTIFIER,
-    NUMBER,
+    END,
     ERROR,
-    STRING,
-    END
+    IDENTIFIER,
+    INIT,
+    NUMBER,
+    STRING
 }
 
 public class StateMachineAnalyzer : LexicalAnalyzer

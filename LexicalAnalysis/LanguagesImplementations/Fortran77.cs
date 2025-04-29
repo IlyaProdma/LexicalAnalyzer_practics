@@ -14,11 +14,11 @@ public class Fortran77 : ProgrammingLanguage
 
     private Fortran77() : base(new(_keywords), new(_delimiters), new(_operators)) {}
 
-    public override bool IsDelimiter(string word) => _delimiters.Contains(word.ToLower());
+    public override bool IsDelimiter(string word) => Delimiters.Contains(word.ToLower());
 
-    public override bool IsKeyWord(string word) => _keywords.Contains(word.ToLower());
+    public override bool IsKeyWord(string word) => KeyWords.Contains(word.ToLower());
 
-    public override bool IsOperator(string word) => _operators.Contains(word.ToLower());
+    public override bool IsOperator(string word) => Operators.Contains(word.ToLower());
 
     private static readonly string[] _keywords =
     {

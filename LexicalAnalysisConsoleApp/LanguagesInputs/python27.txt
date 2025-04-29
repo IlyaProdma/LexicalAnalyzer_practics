@@ -9,7 +9,7 @@ class MyClass:
         field3 = {}
 
 def func():
-    var1 = 1 + 1
+    var1 = 1 + 1.2
     for i in range(1, 10):
         print i
 
