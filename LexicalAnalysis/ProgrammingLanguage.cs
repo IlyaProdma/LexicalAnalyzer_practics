@@ -12,9 +12,9 @@ public abstract class ProgrammingLanguage
         Operators = operators;
     }
 
-    protected HashSet<string> KeyWords { get; private set; }
-    protected HashSet<string> Delimiters { get; private set; }
-    protected HashSet<string> Operators { get; private set; }
+    public HashSet<string> KeyWords { get; private set; }
+    public HashSet<string> Delimiters { get; private set; }
+    public HashSet<string> Operators { get; private set; }
 
     public virtual bool IsKeyWord(string word) => KeyWords.Contains(word);
 

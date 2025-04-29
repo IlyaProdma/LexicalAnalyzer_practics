@@ -61,9 +61,13 @@ public class StateMachineAnalyzer : LexicalAnalyzer
         {
             _currentIndex++;
         }
-        else if (char.IsLetter(_text[_currentIndex]) || _text[_currentIndex] == '_')
+        else if (char.IsLetter(_text[_currentIndex]) ||
+                _text[_currentIndex] == '_' ||
+                _text[_currentIndex] == '.') // fortran operators...
         {
             _buffer.Clear();
+            _buffer.Append(_text[_currentIndex]);
+            _currentIndex++;
             _currentState = AnalysisState.IDENTIFIER;
         }
         else if (char.IsDigit(_text[_currentIndex]))
@@ -87,7 +91,12 @@ public class StateMachineAnalyzer : LexicalAnalyzer
 
     private void ResolveIdentificatorState()
     {
-        if (char.IsLetterOrDigit(_text[_currentIndex]) || _text[_currentIndex] == '_')
+        // fortran moment...
+        if (
+            _buffer[0] == '.' && char.IsLetter(_text[_currentIndex]) ||
+            _buffer[0] == '.' && char.IsLetterOrDigit(_buffer[_buffer.Length - 1]) && (char.IsLetter(_text[_currentIndex]) || _text[_currentIndex] == '.') ||
+            (char.IsLetterOrDigit(_buffer[_buffer.Length - 1]) || _buffer[_buffer.Length - 1] == '_') && (char.IsLetterOrDigit(_text[_currentIndex]) || _text[_currentIndex] == '_')
+        )
         {
             _buffer.Append(_text[_currentIndex]);
             _currentIndex++;
@@ -98,6 +107,14 @@ public class StateMachineAnalyzer : LexicalAnalyzer
             if (_language.IsKeyWord(value))
             {
                 _lexems.Add(new Lexem(LexemType.Keyword, value));
+            }
+            else if (_language.IsOperator(value))
+            {
+                _lexems.Add(new Lexem(LexemType.Operator, value));
+            }
+            else if (_language.IsDelimiter(value))
+            {
+                _lexems.Add(new Lexem(LexemType.Delimiter, value));
             }
             else
             {

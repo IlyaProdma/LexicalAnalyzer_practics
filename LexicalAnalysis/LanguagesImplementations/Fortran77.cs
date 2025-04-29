@@ -12,13 +12,11 @@ public class Fortran77 : ProgrammingLanguage
         }
     }
 
-    private Fortran77() : base(new(_keywords), new(_delimiters), new(_operators)) {}
-
-    public override bool IsDelimiter(string word) => Delimiters.Contains(word.ToLower());
-
-    public override bool IsKeyWord(string word) => KeyWords.Contains(word.ToLower());
-
-    public override bool IsOperator(string word) => Operators.Contains(word.ToLower());
+    private Fortran77() : base(
+        new(_keywords.Union(_keywords.Select(k => k.ToUpper()))),
+        new(_delimiters),
+        new(_operators.Union(_operators.Select(o => o.ToUpper())))
+    ) {}
 
     private static readonly string[] _keywords =
     {
@@ -79,15 +77,15 @@ public class Fortran77 : ProgrammingLanguage
 
     private static readonly string[] _operators =
     {
-        ".EQ.",
-        ".NE.",
-        ".GT.",
-        ".GE.",
-        ".LT.",
-        ".LE.",
-        ".NOT.",
-        ".AND.",
-        ".OR.",
+        ".eq.",
+        ".ne.",
+        ".gt.",
+        ".ge.",
+        ".lt.",
+        ".le.",
+        ".not.",
+        ".and.",
+        ".or.",
         "+",
         "-",
         "*",

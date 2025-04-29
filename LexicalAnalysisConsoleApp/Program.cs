@@ -30,15 +30,44 @@ namespace LexicalAnalysisConsoleApp {
             Console.WriteLine(ASTERISK_LINE);
             ConsoleOutput("Ilya Prodma, MKS244, HW1 \"Lexical Analzer\"");
             Console.WriteLine(ASTERISK_LINE);
+        }
+
+        private static LexicalAnalyzer? PrintSelectAnalyzer(ProgrammingLanguage language)
+        {
+            ConsoleOutput("Select analyzer type:");
+            ConsoleOutput("1) Regexp");
+            ConsoleOutput("2) State machine");
+            ConsoleOutput("0) Exit program");
+            Console.WriteLine(ASTERISK_LINE);
+            int input;
+            do {
+                ConsoleOutput("Your choice:");
+                input = Convert.ToInt32(Console.ReadLine());
+                switch (input)
+                {
+                    case 1:
+                        return new RegularExpressionsAnalyzer(language);
+                    case 2:
+                        return new StateMachineAnalyzer(language);
+                    case 0:
+                        return null;
+                    default:
+                        ConsoleOutput("Error! Try again!");
+                        input = -1;
+                    break;
+                }                
+            } while (input == -1);
+
+            return null;
+        }
+
+        private static ProgrammingLanguage? PrintSelectLanguage()
+        {
             ConsoleOutput("Select language to interpret:");
             ConsoleOutput("1) Fortran (77)");
             ConsoleOutput("2) Python (2.7)");
             ConsoleOutput("0) Exit program");
             Console.WriteLine(ASTERISK_LINE);
-        }
-
-        private static ProgrammingLanguage? PrintSelectLanguage()
-        {
             int input;
             do {
                 ConsoleOutput("Your choice:");
@@ -102,7 +131,9 @@ namespace LexicalAnalysisConsoleApp {
             ProgrammingLanguage? language = PrintSelectLanguage();
             if (language is null) return;
 
-            LexicalAnalyzer analyzer = new StateMachineAnalyzer(language);
+            LexicalAnalyzer? analyzer = PrintSelectAnalyzer(language);
+            if (analyzer is null) return;
+
             ConsoleOutput("Input name of file to analyze or type exit()");
             var filename = PrintSelectFilename();
             if (string.IsNullOrEmpty(filename)) return;
